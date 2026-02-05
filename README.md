@@ -116,6 +116,8 @@ curl -H "X-API-Key: your-api-key" \
    cd connect-microservice
    ```
 
+> **Current Production URL:** https://connect-microservice.vercel.app
+
 2. **Install dependencies:**
    ```bash
    npm install
