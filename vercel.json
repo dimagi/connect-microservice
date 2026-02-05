@@ -1,0 +1,9 @@
+{
+  "version": 2,
+  "routes": [
+    {
+      "src": "/api/get_question",
+      "dest": "/api/get_question.js"
+    }
+  ]
+}

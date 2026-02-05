@@ -1,0 +1,6 @@
+question_id,question_text,question_type
+1,"What are your impressions of Marie Stopes International (if any), both in terms of the family planning services they provide and in terms of how they engage with Community Health Workers?",Open-ended (exploratory)
+2,How do you think Marie Stopes International compares to other family planning organizations?,Open-ended (comparative)
+3,How do you feel about implants as a family planning method?,Open-ended (attitudinal)
+4,"Do you think people get pressured to use implants? If so, do you think this pressure comes from any particular organizations/providers?","Mixed: First part: Binary (Yes/No), Follow-up: Open-ended (attribution)"
+5,Do you think people have easy enough access to implant removal services?,Binary (Yes/No) with implicit elaboration possible
