@@ -1,0 +1,207 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Connect Questions API",
+    "description": "API for retrieving questions from a question bank for use in surveys and forms.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://connect-microservice.vercel.app",
+      "description": "Production server"
+    }
+  ],
+  "paths": {
+    "/api/get_question": {
+      "get": {
+        "operationId": "get_question",
+        "summary": "Get a question by form ID and question number",
+        "description": "Retrieves a specific question from the question bank. If form_id is not provided, defaults to the main questions file.",
+        "parameters": [
+          {
+            "name": "form_id",
+            "in": "query",
+            "required": false,
+            "description": "The form identifier. If not provided, uses the default questions file.",
+            "schema": {
+              "type": "string",
+              "default": "questions"
+            }
+          },
+          {
+            "name": "question_number",
+            "in": "query",
+            "required": true,
+            "description": "The question number to retrieve.",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved the question",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Question"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - missing required parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - invalid or missing API key",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Question or form not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "apiKey": []
+          }
+        ]
+      },
+      "post": {
+        "operationId": "get_question_post",
+        "summary": "Get a question by form ID and question number (POST)",
+        "description": "Retrieves a specific question from the question bank using POST method. If form_id is not provided, defaults to the main questions file.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["question_number"],
+                "properties": {
+                  "form_id": {
+                    "type": "string",
+                    "description": "The form identifier. If not provided, uses the default questions file.",
+                    "default": "questions"
+                  },
+                  "question_number": {
+                    "type": "integer",
+                    "description": "The question number to retrieve."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved the question",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Question"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - missing required parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - invalid or missing API key",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Question or form not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "apiKey": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Question": {
+        "type": "object",
+        "properties": {
+          "question_id": {
+            "type": "string",
+            "description": "The unique identifier for the question"
+          },
+          "question_text": {
+            "type": "string",
+            "description": "The full text of the question"
+          },
+          "question_type": {
+            "type": "string",
+            "description": "The type of question (e.g., Open-ended, Yes/No, Multiple choice)"
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string",
+            "description": "Error type"
+          },
+          "message": {
+            "type": "string",
+            "description": "Detailed error message"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "apiKey": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-API-Key",
+        "description": "API key for authentication"
+      }
+    }
+  }
+}

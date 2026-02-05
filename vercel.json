@@ -2,6 +2,10 @@
   "version": 2,
   "routes": [
     {
+      "src": "/api/openapi",
+      "dest": "/api/openapi.js"
+    },
+    {
       "src": "/api/get_question",
       "dest": "/api/get_question.js"
     }
